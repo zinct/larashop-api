@@ -16,4 +16,15 @@ class BaseController extends Controller
 
         return response()->json($data, $code);
     }
+
+    protected function sendError(int $code = 400, $data = null, $message = null)
+    {
+        $data = [
+            'code' => $code,
+            'message' => $message,
+            'data' => $data,
+        ];
+
+        return response()->json($data, $code);
+    }
 }

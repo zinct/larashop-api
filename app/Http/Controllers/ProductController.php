@@ -15,7 +15,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Product::get();
+        $products = Product::with('category')->get();
         return $this->sendResponse(200, $products, 'Retieved products successfully');
     }
 
@@ -29,6 +29,7 @@ class ProductController extends BaseController
     {
         $validator = Validator::make($request->post(), [
             'name' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'status' => 'required|boolean',
@@ -61,6 +62,7 @@ class ProductController extends BaseController
     {
         $validator = Validator::make($request->post(), [
             'name' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'status' => 'required|boolean',
